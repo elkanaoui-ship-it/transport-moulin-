@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Transport Moulin – Déménagement Toulouse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --orange: #F55C00;
+      --orange-light: #FF7A2F;
+      --orange-pale: #FFF0E8;
+      --dark: #1A1208;
+      --white: #FFFFFF;
+      --grey: #F5F2EF;
+      --text: #2D2410;
+      --muted: #8A7560;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 5%;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(245,92,0,0.1);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--dark);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo span { color: var(--orange); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--orange); }
+
+    .nav-cta {
+      background: var(--orange);
+      color: white !important;
+      padding: 10px 22px;
+      border-radius: 100px;
+      font-weight: 600 !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--orange-light) !important; color: white !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 120px 5% 80px;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(245,92,0,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '🚐';
+      position: absolute;
+      bottom: 40px; right: 5%;
+      font-size: 180px;
+      opacity: 0.08;
+      transform: scaleX(-1);
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 2; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245,92,0,0.15);
+      border: 1px solid rgba(245,92,0,0.3);
+      color: var(--orange-light);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.05;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span { color: var(--orange); }
+
+    .hero p {
+      color: rgba(255,255,255,0.65);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      max-width: 440px;
+      margin-bottom: 40px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: white;
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.05); }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-left: 60px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .stat-card:hover { transform: translateX(6px); background: rgba(255,255,255,0.08); }
+
+    .stat-icon {
+      font-size: 2rem;
+      width: 56px; height: 56px;
+      background: rgba(245,92,0,0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .stat-info h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .stat-info p { color: rgba(255,255,255,0.5); font-size: 0.85rem; }
+
+    /* SERVICES */
+    .services {
+      padding: 100px 5%;
+      background: var(--grey);
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--dark);
+      margin-bottom: 60px;
+      max-width: 500px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 32px;
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--orange);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+      transform-origin: left;
+    }
+
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(245,92,0,0.1); }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .service-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    .service-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .service-price {
+      font-weight: 700;
+      color: var(--orange);
+      font-size: 0.95rem;
+    }
+
+    /* TARIFS */
+    .tarifs {
+      padding: 100px 5%;
+      background: var(--white);
+    }
+
+    .tarifs-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .tarif-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .tarif-table tr {
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: background 0.2s;
+    }
+
+    .tarif-table tr:hover { background: var(--orange-pale); }
+
+    .tarif-table td {
+      padding: 16px 8px;
+      font-size: 0.95rem;
+    }
+
+    .tarif-table td:last-child {
+      text-align: right;
+      font-weight: 700;
+      color: var(--orange);
+    }
+
+    .tarif-note {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: var(--orange-pale);
+      border-left: 3px solid var(--orange);
+      border-radius: 0 8px 8px 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* DEVIS FORM */
+    .devis-box {
+      background: var(--dark);
+      border-radius: 24px;
+      padding: 40px;
+      color: white;
+    }
+
+    .devis-box h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .devis-box > p {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.9rem;
+      margin-bottom: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: white;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+
+    .form-group select option { background: #2D2410; color: white; }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--orange); }
+
+    .form-group textarea { resize: vertical; min-height: 80px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .btn-form {
+      width: 100%;
+      margin-top: 8px;
+      padding: 16px;
+      background: var(--orange);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-form:hover { background: var(--orange-light); transform: translateY(-1px); }
+
+    /* AVIS */
+    .avis {
+      padding: 100px 5%;
+      background: var(--orange);
+      color: white;
+      text-align: center;
+    }
+
+    .avis .section-label { color: rgba(255,255,255,0.7); }
+    .avis .section-title { color: white; margin: 0 auto 50px; }
+
+    .avis-stars {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+
+    .avis-score {
+      font-family: 'Syne', sans-serif;
+      font-size: 5rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .avis-label {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 40px;
+    }
+
+    .avis-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .avis-card {
+      background: rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: left;
+      backdrop-filter: blur(10px);
+    }
+
+    .avis-card .stars { margin-bottom: 12px; font-size: 0.9rem; }
+    .avis-card p { font-size: 0.9rem; opacity: 0.9; line-height: 1.6; margin-bottom: 16px; }
+    .avis-card strong { font-size: 0.85rem; opacity: 0.7; }
+
+    /* CONTACT */
+    .contact {
+      padding: 100px 5%;
+      background: var(--dark);
+      color: white;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .contact h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .contact h2 span { color: var(--orange); }
+
+    .contact > div > p {
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .contact-items { display: flex; flex-direction: column; gap: 20px; }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .contact-item-icon {
+      width: 48px; height: 48px;
+      background: rgba(245,92,0,0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item-info p:first-child {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .contact-item-info a,
+    .contact-item-info p:last-child {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+
+    .contact-item-info a:hover { color: var(--orange); }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: white;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .social-link:hover { background: rgba(245,92,0,0.2); border-color: var(--orange); }
+
+    /* FOOTER */
+    footer {
+      background: #0F0A04;
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      padding: 28px 5%;
+      font-size: 0.85rem;
+    }
+
+    footer span { color: var(--orange); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-content { animation: fadeUp 0.7s ease both; }
+    .hero-right { animation: fadeUp 0.7s 0.2s ease both; }
+
+    /* SUCCESS MSG */
+    .success-msg {
+      display: none;
+      background: rgba(245,92,0,0.15);
+      border: 1px solid var(--orange);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+      color: var(--orange-light);
+      font-weight: 600;
+      margin-top: 16px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 100px; }
+      .hero-right { padding-left: 0; }
+      .tarifs-layout { grid-template-columns: 1fr; }
+      .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+      .nav-links { display: none; }
+      .hero::after { font-size: 100px; }
+    }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .social-links { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Transport <span>Moulin</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#tarifs">Tarifs</a></li>
+    <li><a href="#avis">Avis</a></li>
+    <li><a href="#contact" class="nav-cta">Demander un devis</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">⭐ 5/5 sur AlloVoisins · Toulouse</div>
+    <h1>Déménagement<br/>& Transport<br/><span>à Toulouse</span></h1>
+    <p>Camion 11m³, sérieux et ponctuel. Déménagement, vide cave, livraison de meubles — devis gratuit en quelques minutes.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">📋 Demander un devis gratuit</a>
+      <a href="tel:0609603516" class="btn-secondary">📞 06 09 60 35 16</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-card">
+      <div class="stat-icon">⭐</div>
+      <div class="stat-info">
+        <h3>5/5</h3>
+        <p>Note AlloVoisins</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🚐</div>
+      <div class="stat-info">
+        <h3>11m³</h3>
+        <p>Camion Peugeot Boxer équipé</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">📍</div>
+      <div class="stat-info">
+        <h3>Toulouse</h3>
+        <p>Saint-Cyprien & toute la région</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">💶</div>
+      <div class="stat-info">
+        <h3>Dès 50€</h3>
+        <p>Devis gratuit & sans engagement</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label">Ce qu'on fait</div>
+  <div class="section-title">Tous vos besoins de transport couverts</div>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-icon">🏠</span>
+      <h3>Déménagement complet</h3>
+      <p>Chargement, transport, déchargement. Studio, T2, T3, T4 et plus. Avec ou sans aide.</p>
+      <div class="service-price">Dès 200€</div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">📦</span>
+      <h3>Transport simple</h3>
+      <p>Un objet volumineux, des cartons, du mobilier — on s'en occupe rapidement.</p>
+      <div class="service-price">Dès 50€</div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🛋️</span>
+      <h3>Livraison & montage meubles</h3>
+      <p>IKEA, Conforama, BUT — livraison à domicile + montage si besoin.</p>
+      <div class="service-price">Dès 80€</div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🏚️</span>
+      <h3>Vide cave / maison / garage</h3>
+      <p>Évacuation complète de vos encombrants, avec ou sans dépôt en déchetterie.</p>
+      <div class="service-price">Sur devis</div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🌿</span>
+      <h3>Débarras jardin</h3>
+      <p>Évacuation de déchets verts, gravats légers, vieux mobilier de jardin.</p>
+      <div class="service-price">Sur devis</div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">♻️</span>
+      <h3>Déchetterie & encombrants</h3>
+      <p>On récupère et on dépose pour vous. Rapide et sans stress.</p>
+      <div class="service-price">Sur devis</div>
+    </div>
+  </div>
+</section>
+
+<!-- TARIFS -->
+<section class="tarifs" id="tarifs">
+  <div class="section-label">Transparence</div>
+  <div class="section-title">Tarifs clairs, sans surprise</div>
+  <div class="tarifs-layout">
+    <div>
+      <table class="tarif-table">
+        <tr><td>🚐 Transport simple (sans aide)</td><td>Dès 50€</td></tr>
+        <tr><td>🤝 Transport avec aide au chargement</td><td>Dès 80€</td></tr>
+        <tr><td>🏠 Déménagement Studio</td><td>Dès 200€</td></tr>
+        <tr><td>🏠 Déménagement T2</td><td>Dès 400€</td></tr>
+        <tr><td>🏠 Déménagement T3</td><td>Dès 500€</td></tr>
+        <tr><td>🏠 Déménagement T4 et plus</td><td>Dès 700€</td></tr>
+        <tr><td>💪 Manutentionnaire supplémentaire</td><td>+70€/pers</td></tr>
+        <tr><td>🪜 Étage sans ascenseur</td><td>+10€/étage</td></tr>
+        <tr><td>🛋️ Livraison + montage IKEA/Conforama/BUT</td><td>Dès 80€</td></tr>
+        <tr><td>🏚️ Vide cave / maison / garage</td><td>Sur devis</td></tr>
+        <tr><td>🌿 Débarras jardin / déchetterie</td><td>Sur devis</td></tr>
+      </table>
+      <div class="tarif-note">
+        💡 Ces tarifs sont des prix de départ. Le devis final dépend du volume, de l'étage, de la distance et du nombre de manutentionnaires. Toujours gratuit et sans engagement.
+      </div>
+    </div>
+    <div class="devis-box" id="contact">
+      <h3>Demande de devis rapide</h3>
+      <p>Réponse sous quelques heures 🕐</p>
+      <div class="form-group">
+        <label>Votre prénom</label>
+        <input type="text" placeholder="Ex : Marie" id="f-prenom"/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Téléphone</label>
+          <input type="tel" placeholder="06 XX XX XX XX" id="f-tel"/>
+        </div>
+        <div class="form-group">
+          <label>Type de prestation</label>
+          <select id="f-type">
+            <option value="">Choisir...</option>
+            <option>Déménagement studio</option>
+            <option>Déménagement T2</option>
+            <option>Déménagement T3</option>
+            <option>Déménagement T4+</option>
+            <option>Transport simple</option>
+            <option>Livraison meuble IKEA/BUT</option>
+            <option>Vide cave / garage</option>
+            <option>Débarras / déchetterie</option>
+            <option>Autre</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Adresse de départ</label>
+        <input type="text" placeholder="Ex : 12 rue du Taur, Toulouse" id="f-depart"/>
+      </div>
+      <div class="form-group">
+        <label>Précisions (étage, ascenseur, date souhaitée...)</label>
+        <textarea placeholder="Ex : 3ème étage sans ascenseur, déménagement prévu le 15 mai..." id="f-details"></textarea>
+      </div>
+      <button class="btn-form" onclick="submitDevis()">📋 Envoyer ma demande de devis</button>
+      <div class="success-msg" id="success-msg">✅ Demande envoyée ! Mohamed vous recontacte rapidement.</div>
+    </div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section class="avis" id="avis">
+  <div class="section-label">Ils témoignent</div>
+  <div class="section-title">Ce que disent nos clients</div>
+  <div class="avis-stars">⭐⭐⭐⭐⭐</div>
+  <div class="avis-score">5/5</div>
+  <div class="avis-label">Note parfaite sur AlloVoisins</div>
+  <div class="avis-cards">
+    <div class="avis-card">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p>Très sérieux, ponctuel et efficace. Mon déménagement s'est passé sans stress. Je recommande sans hésiter !</p>
+      <strong>— Client AlloVoisins</strong>
+    </div>
+    <div class="avis-card">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p>Tarif honnête, travail soigné. Mohamed a géré le 3ème étage sans ascenseur sans se plaindre. Top !</p>
+      <strong>— Client AlloVoisins</strong>
+    </div>
+    <div class="avis-card">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p>Livraison et montage de mes meubles IKEA faits proprement. Rapide et sympa. Parfait.</p>
+      <strong>— Client AlloVoisins</strong>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <div class="contact-layout">
+    <div>
+      <div class="section-label" style="color: rgba(255,255,255,0.4)">On se parle ?</div>
+      <h2>Contactez <span>Mohamed</span> directement</h2>
+      <p>Un appel suffit pour avoir un devis. Pas de formulaire compliqué, pas d'attente — une réponse humaine et rapide.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div class="contact-item-info">
+            <p>Téléphone</p>
+            <a href="tel:0609603516">06 09 60 35 16</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div class="contact-item-info">
+            <p>Email</p>
+            <a href="mailto:elkanaoui@gmail.com">elkanaoui@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-info">
+            <p>Basé à</p>
+            <p>Toulouse — Saint-Cyprien (31300)</p>
+          </div>
+        </div>
+      </div>
+      <div class="social-links">
+        <a href="https://instagram.com/TransportMoulin" target="_blank" class="social-link">📸 Instagram</a>
+        <a href="https://tiktok.com/@TransportMoulin" target="_blank" class="social-link">🎵 TikTok</a>
+        <a href="https://facebook.com/TransportMoulin" target="_blank" class="social-link">👥 Facebook</a>
+      </div>
+    </div>
+    <div style="background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:24px; padding:40px;">
+      <p style="font-size:3rem; margin-bottom:16px;">🚐</p>
+      <h3 style="font-family:'Syne',sans-serif; font-size:1.4rem; font-weight:800; margin-bottom:12px;">Transport Moulin</h3>
+      <p style="color:rgba(255,255,255,0.5); line-height:1.7; margin-bottom:24px;">Déménagement, vide cave, livraison meubles — camion 11m³ disponible rapidement à Toulouse et sa région.</p>
+      <a href="tel:0609603516" class="btn-primary" style="display:inline-flex;">📞 Appeler maintenant</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <span>Transport Moulin</span> — Mohamed El Kanaoui · Toulouse Saint-Cyprien (31300) · <a href="tel:0609603516" style="color:rgba(255,255,255,0.4); text-decoration:none;">06 09 60 35 16</a></p>
+</footer>
+
+<script>
+  function submitDevis() {
+    const prenom = document.getElementById('f-prenom').value;
+    const tel = document.getElementById('f-tel').value;
+    const type = document.getElementById('f-type').value;
+
+    if (!prenom || !tel || !type) {
+      alert('Merci de renseigner votre prénom, téléphone et type de prestation.');
+      return;
+    }
+
+    document.getElementById('success-msg').style.display = 'block';
+    document.querySelector('.btn-form').disabled = true;
+    document.querySelector('.btn-form').textContent = '✅ Envoyé !';
+    document.querySelector('.btn-form').style.background = '#2a7a2a';
+  }
+
+  // Smooth reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .stat-card, .avis-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
